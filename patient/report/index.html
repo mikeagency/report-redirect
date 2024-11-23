@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Pages</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting...</title>
+  <script>
+    // Extract the last part of the URL path (e.g., "qclr")
+    const pathSegments = window.location.pathname.split('/');
+    const file = pathSegments[pathSegments.length - 1]; // Get the last segment
+
+    if (file) {
+      // Redirect to the corresponding file in Supabase
+      const fileWithExtension = `${file}.pdf`; // Append ".pdf" to the file name
+      window.location.href = `https://<supabase-bucket-url>/${fileWithExtension}`;
+    } else {
+      document.write("<p>Error: No file specified. Please check the URL.</p>");
+    }
+  </script>
 </head>
 <body>
-    <h1>Welcome to My GitHub Pages</h1>
+  <noscript>Please enable JavaScript to use this redirect feature.</noscript>
 </body>
 </html>
