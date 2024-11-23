@@ -1,0 +1,9 @@
+[[redirects]]
+  from = "/patient/report/:file"
+  
+ 
+to = "/report/index.html"
+  
+ 
+status = 200
+  force = true
