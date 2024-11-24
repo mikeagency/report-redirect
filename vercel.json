@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/patient/report/:file",
+      "destination": "/patient/report/index.html"
+    }
+  ]
+}
