@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -22,3 +22,49 @@
   <noscript>Please enable JavaScript to use this redirect feature.</noscript>
 </body>
 </html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting...</title>
+  <script>
+    // Extract the last part of the URL path (e.g., "qclr")
+    const pathSegments = window.location.pathname.split('/');
+    const file = pathSegments[pathSegments.length - 1]; // Get the last segment
+
+    if (file) {
+      // Append ".pdf" to the file name
+      const fileWithExtension = `${file}.pdf`;
+      const supabaseFileUrl = `https://qjqivqkniqaihetjgqke.supabase.co/storage/v1/object/public/patient_report/${fileWithExtension}`;
+
+      // Fetch the file and trigger the download
+      fetch(supabaseFileUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("File not found or an error occurred while fetching.");
+          }
+          return response.blob(); // Convert response to Blob
+        })
+        .then(blob => {
+          const downloadLink = document.createElement("a");
+          downloadLink.href = URL.createObjectURL(blob);
+          downloadLink.download = "Medical_result_verification.pdf"; // Set the desired filename
+          downloadLink.click(); // Trigger download
+          URL.revokeObjectURL(downloadLink.href); // Clean up the URL object
+        })
+        .catch(error => {
+          document.body.innerHTML = `<p>Error: ${error.message}</p>`;
+          console.error("Error fetching the file:", error);
+        });
+    } else {
+      document.write("<p>Error: No file specified. Please check the URL.</p>");
+    }
+  </script>
+</head>
+<body>
+  <noscript>Please enable JavaScript to use this redirect feature.</noscript>
+</body>
+</html>
+
