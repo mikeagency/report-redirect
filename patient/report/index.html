@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -22,6 +22,8 @@
   <noscript>Please enable JavaScript to use this redirect feature.</noscript>
 </body>
 </html>
+-->
+
 
 <!--<!DOCTYPE html>
 <html lang="en">
@@ -68,4 +70,55 @@
 </body>
 </html>
 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting...</title>
+  <script>
+    // Extract the last part of the URL path (e.g., "qclr")
+    const pathSegments = window.location.pathname.split('/');
+    const file = pathSegments[pathSegments.length - 1]; // Get the last segment
+
+    if (file) {
+      // Append ".pdf" to the file name
+      const fileWithExtension = `${file}.pdf`;
+      const supabaseFileUrl = `https://qjqivqkniqaihetjgqke.supabase.co/storage/v1/object/public/patient_report/${fileWithExtension}`;
+
+      // Create XMLHttpRequest for file fetching
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', supabaseFileUrl, true);
+      xhr.responseType = 'blob'; // Expect binary file data
+
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          const blob = xhr.response;
+
+          // Create a download link and simulate a click
+          const downloadLink = document.createElement('a');
+          downloadLink.href = window.URL.createObjectURL(blob);
+          downloadLink.download = "Medical_result_verification.pdf"; // Set desired filename
+          downloadLink.click(); // Simulate click to trigger download
+          window.URL.revokeObjectURL(downloadLink.href); // Clean up the URL object
+        } else {
+          document.body.innerHTML = `<p>Error: Unable to download the file. Status code: ${xhr.status}</p>`;
+        }
+      };
+
+      xhr.onerror = function () {
+        document.body.innerHTML = `<p>Error: Failed to connect to the server.</p>`;
+      };
+
+      xhr.send(); // Send the request
+    } else {
+      document.write("<p>Error: No file specified. Please check the URL.</p>");
+    }
+  </script>
+</head>
+<body>
+  <noscript>Please enable JavaScript to use this redirect feature.</noscript>
+</body>
+</html>
 
